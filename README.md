@@ -1,0 +1,2 @@
+# QUIZ
+A JavaScript project

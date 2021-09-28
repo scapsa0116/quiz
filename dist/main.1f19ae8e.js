@@ -118,8 +118,6 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"main.js":[function(require,module,exports) {
-function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
-
 var quizData = [{
   question: "Capital of Moldova?",
   a: "Chisinau",
@@ -158,59 +156,60 @@ var quizData = [{
 }];
 var quiz = document.getElementById("quiz");
 var answerEls = document.querySelectorAll(".answer");
-var questionE1 = document.getElementById("question");
+var questionEl = document.getElementById("question");
 var a_text = document.getElementById("a_text");
 var b_text = document.getElementById("b_text");
 var c_text = document.getElementById("c_text");
 var d_text = document.getElementById("d_text");
 var submitBtn = document.getElementById("submit");
 var currentQuiz = 0;
-var answer = undefined;
+var score = 0;
 loadQuiz();
 
 function loadQuiz() {
+  deselectAnswers();
   var currentQuizData = quizData[currentQuiz];
-  questionE1.innerText = currentQuizData.question;
+  questionEl.innerText = currentQuizData.question;
   a_text.innerText = currentQuizData.a;
   b_text.innerText = currentQuizData.b;
   c_text.innerText = currentQuizData.c;
   d_text.innerText = currentQuizData.d;
+}
 
-  function getSelected() {
-    var answer = undefined;
-    answerEls.forEach(function (answerEl) {
-      if (answerEl.checked) {
-        answerEl.id, _readOnlyError("answer");
-      }
-    });
-    return answer;
-  }
-
-  function deselectAnswer() {
-    answerEls.forEach(function (answerEl) {
-      answerEl.checked = false;
-    });
-  }
-
-  submitBtn.addEventListner('click', function () {
-    // currentQuiz++;
-    var answer = getSelected();
-
-    if (answer) {
-      if (answer === quizData[currentQuiz].correct) {
-        score++;
-      }
-
-      currentQuiz++;
-
-      if (currentQuiz < quizData.length) {
-        loadQuiz();
-      } else {
-        quiz.innerHTML = "\n         <h2> Correct at ".concat(score, "/").concat(quizData.length, " question.</h2>\n\n\n         <button onclick = \"location.reload()\">Reload</buttobn>\n         ");
-      }
+function getSelected() {
+  var answer = undefined;
+  answerEls.forEach(function (answerEl) {
+    if (answerEl.checked) {
+      answer = answerEl.id;
     }
   });
+  return answer;
 }
+
+function deselectAnswers() {
+  answerEls.forEach(function (answerEl) {
+    answerEl.checked = false;
+  });
+}
+
+submitBtn.addEventListener("click", function () {
+  // check to see the answer
+  var answer = getSelected();
+
+  if (answer) {
+    if (answer === quizData[currentQuiz].correct) {
+      score++;
+    }
+
+    currentQuiz++;
+
+    if (currentQuiz < quizData.length) {
+      loadQuiz();
+    } else {
+      quiz.innerHTML = "\n                <h2>You answered correctly at ".concat(score, "/").concat(quizData.length, " questions.</h2>\n                \n                <button onclick=\"location.reload()\">Reload</button>\n            ");
+    }
+  }
+});
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -239,7 +238,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63736" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51797" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

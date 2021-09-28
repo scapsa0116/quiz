@@ -118,6 +118,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"main.js":[function(require,module,exports) {
+function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
+
 var quizData = [{
   question: "Capital of Moldova?",
   a: "Chisinau",
@@ -154,12 +156,16 @@ var quizData = [{
   d: "Ukrainian",
   correct: "a"
 }];
+var quiz = document.getElementById("quiz");
+var answerEls = document.querySelectorAll(".answer");
 var questionE1 = document.getElementById("question");
 var a_text = document.getElementById("a_text");
 var b_text = document.getElementById("b_text");
 var c_text = document.getElementById("c_text");
 var d_text = document.getElementById("d_text");
+var submitBtn = document.getElementById("submit");
 var currentQuiz = 0;
+var answer = undefined;
 loadQuiz();
 
 function loadQuiz() {
@@ -169,7 +175,41 @@ function loadQuiz() {
   b_text.innerText = currentQuizData.b;
   c_text.innerText = currentQuizData.c;
   d_text.innerText = currentQuizData.d;
-  currentQuestion++;
+
+  function getSelected() {
+    var answer = undefined;
+    answerEls.forEach(function (answerEl) {
+      if (answerEl.checked) {
+        answerEl.id, _readOnlyError("answer");
+      }
+    });
+    return answer;
+  }
+
+  function deselectAnswer() {
+    answerEls.forEach(function (answerEl) {
+      answerEl.checked = false;
+    });
+  }
+
+  submitBtn.addEventListner('click', function () {
+    // currentQuiz++;
+    var answer = getSelected();
+
+    if (answer) {
+      if (answer === quizData[currentQuiz].correct) {
+        score++;
+      }
+
+      currentQuiz++;
+
+      if (currentQuiz < quizData.length) {
+        loadQuiz();
+      } else {
+        quiz.innerHTML = "\n         <h2> Correct at ".concat(score, "/").concat(quizData.length, " question.</h2>\n\n\n         <button onclick = \"location.reload()\">Reload</buttobn>\n         ");
+      }
+    }
+  });
 }
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -199,7 +239,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57575" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63736" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

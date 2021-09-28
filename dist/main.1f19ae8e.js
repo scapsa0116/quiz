@@ -118,7 +118,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"main.js":[function(require,module,exports) {
-var data = [{
+var quizData = [{
   question: "Capital of Moldova?",
   a: "Chisinau",
   b: "Bogota",
@@ -154,6 +154,23 @@ var data = [{
   d: "Ukrainian",
   correct: "a"
 }];
+var questionE1 = document.getElementById("question");
+var a_text = document.getElementById("a_text");
+var b_text = document.getElementById("b_text");
+var c_text = document.getElementById("c_text");
+var d_text = document.getElementById("d_text");
+var currentQuiz = 0;
+loadQuiz();
+
+function loadQuiz() {
+  var currentQuizData = quizData[currentQuestion];
+  questionE1.innerText = currentQuizData.question;
+  a_text.innerText = currentQuizData.a;
+  b_text.innerText = currentQuizData.b;
+  c_text.innerText = currentQuizData.c;
+  d_text.innerText = currentQuizData.d;
+  currentQuestion++;
+}
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

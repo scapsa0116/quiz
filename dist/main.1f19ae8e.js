@@ -163,7 +163,7 @@ var currentQuiz = 0;
 loadQuiz();
 
 function loadQuiz() {
-  var currentQuizData = quizData[currentQuestion];
+  var currentQuizData = quizData[currentQuiz];
   questionE1.innerText = currentQuizData.question;
   a_text.innerText = currentQuizData.a;
   b_text.innerText = currentQuizData.b;
